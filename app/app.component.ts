@@ -5,12 +5,12 @@ import { Component } from '@angular/core';
     template: `
       <div>
         <div>
-          <div>A</div>
-          <div>B</div>
+          <grocery-items></grocery-items>
+          <!--<div>B</div>-->
         </div>
         <div>
-          <div>C</div>
-          <div>D</div>
+          <!--<div>C</div>-->
+          <!--<div>D</div>-->
         </div>
       </div>`,
   styles: [

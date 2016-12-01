@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
       <div>
         <div>
           <grocery-items></grocery-items>
-          <!--<div>B</div>-->
+          <grocery-list></grocery-list>
         </div>
         <div>
           <!--<div>C</div>-->
@@ -26,7 +26,7 @@ import { Component } from '@angular/core';
   display: flex;
   flex-direction: row;
 }
-:host > div > div > div {
+:host > div > div > * {
   border: 1px solid gray;
   margin: 10px;
   padding: 10px;

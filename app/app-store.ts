@@ -4,6 +4,7 @@ import {createStore} from 'redux';
 import {Observable, Observer} from 'rxjs/Rx';
 
 const INIT_GROCERY_LIST = 'INIT_GROCERY_LIST';
+const ADD_TO_GROCERY_LIST = 'ADD_TO_GROCERY_LIST';
 
 export const initGroceryList = () => {
   return {
@@ -19,11 +20,25 @@ export const initGroceryList = () => {
   };
 };
 
+export const addToGroceryList = (item: any) => {
+  return {
+    type: ADD_TO_GROCERY_LIST,
+    payload: item
+  };
+};
+
 export function reducer(state: any = {}, action: any) {
   switch (action.type) {
     case INIT_GROCERY_LIST:
       return Object.assign({}, state, {
         groceryItems: action.payload
+      });
+    case ADD_TO_GROCERY_LIST:
+      let name = action.payload.name;
+      return Object.assign({}, state, {
+        groceryList: Object.assign({}, state.groceryList, {
+          [name]: (state.groceryList[name] || 0) + 1
+        })
       });
     default:
       return state;
@@ -32,8 +47,14 @@ export function reducer(state: any = {}, action: any) {
 
 const reduxDevToolsExtension = (<any>window).__REDUX_DEVTOOLS_EXTENSION__;
 
+const initialState: any = {
+  groceryItems: [],
+  groceryList: {}
+};
+
 const applicationStore = createStore(
   reducer,
+  initialState,
   reduxDevToolsExtension && reduxDevToolsExtension());
 
 @Injectable()

@@ -30,7 +30,11 @@ export function reducer(state: any = {}, action: any) {
   }
 }
 
-const applicationStore = createStore(reducer);
+const reduxDevToolsExtension = (<any>window).__REDUX_DEVTOOLS_EXTENSION__;
+
+const applicationStore = createStore(
+  reducer,
+  reduxDevToolsExtension && reduxDevToolsExtension());
 
 @Injectable()
 export class StoreService {

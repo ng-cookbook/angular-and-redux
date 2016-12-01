@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import {createStore} from 'redux';
+import {Observable, Observer} from 'rxjs/Rx';
 
 const INIT_GROCERY_LIST = 'INIT_GROCERY_LIST';
 
@@ -33,7 +34,18 @@ const applicationStore = createStore(reducer);
 
 @Injectable()
 export class StoreService {
+
   get store() {
     return applicationStore;
+  }
+
+  subscribe(stateSelector: (state: any) => any): Observable<any> {
+    return Observable.create((observer: Observer<any>) => {
+      let unsubscribe = applicationStore.subscribe(() => {
+        let selectedState = stateSelector(applicationStore.getState());
+        observer.next(selectedState);
+      });
+      return unsubscribe;
+    });
   }
 }

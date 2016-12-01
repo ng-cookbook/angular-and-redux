@@ -13,18 +13,10 @@ import {StoreService, initGroceryList} from './app-store';
       </div>`
 })
 export class GroceryItemsComponent {
-  items: Observable<any[]>;
+  items: Observable<any>;
 
   constructor(private storeService: StoreService) {
-
-    this.items = Observable.create((observer: Observer<any[]>) => {
-      let unsubscribe = this.storeService.store.subscribe(() => {
-        let {groceryItems} = this.storeService.store.getState();
-        observer.next(groceryItems);
-      });
-      return unsubscribe;
-    });
-
+    this.items = storeService.subscribe((state: any) => state.groceryItems);
     setTimeout(() => this.storeService.store.dispatch(initGroceryList()), 2000);
   }
 }

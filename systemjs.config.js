@@ -27,6 +27,7 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'redux':                      'npm:redux/dist/redux.min.js',
+      'reselect':                      'npm:reselect/dist/reselect.js',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension

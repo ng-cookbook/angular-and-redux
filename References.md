@@ -11,6 +11,7 @@ References
 - [Angular Quick Start](https://github.com/angular/quickstart)
 - [Flux Standard Actions](https://github.com/acdlite/flux-standard-action)
 - [Angular Injector Providers](https://angular.io/docs/ts/latest/guide/dependency-injection.html#!#injector-providers)
+- [Reselect](https://github.com/reactjs/reselect)
 - [Redux Middleware](http://redux.js.org/docs/advanced/Middleware.html)
 - [Redux Thunk](https://github.com/gaearon/redux-thunk)
 - [Redux Sagas](http://yelouafi.github.io/redux-saga/)

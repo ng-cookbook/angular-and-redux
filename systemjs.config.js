@@ -27,6 +27,7 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'redux':                      'npm:redux/dist/redux.min.js',
+      'redux-thunk':                      'npm:redux-thunk/dist/redux-thunk.min.js',
       'reselect':                      'npm:reselect/dist/reselect.js',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
     },

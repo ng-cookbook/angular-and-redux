@@ -9,8 +9,8 @@ import { Component } from '@angular/core';
           <grocery-list></grocery-list>
         </div>
         <div>
-          <!--<div>C</div>-->
-          <!--<div>D</div>-->
+          <pantry-list></pantry-list>
+          <account-details></account-details>
         </div>
       </div>`,
   styles: [

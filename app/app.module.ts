@@ -5,10 +5,12 @@ import { AppComponent }  from './app.component';
 import {GroceryItemsComponent} from './grocery-items.component';
 import {StoreService} from './app-store';
 import {GroceryListComponent} from './grocery-list.component';
+import {PantryListComponent} from './pantry.component';
+import {AccountDetailsComponent} from './account.component';
 
 @NgModule({
   imports:      [ BrowserModule ],
-  declarations: [ AppComponent, GroceryItemsComponent, GroceryListComponent ],
+  declarations: [ AppComponent, GroceryItemsComponent, GroceryListComponent, PantryListComponent, AccountDetailsComponent ],
   providers:    [ StoreService ],
   bootstrap:    [ AppComponent ]
 })

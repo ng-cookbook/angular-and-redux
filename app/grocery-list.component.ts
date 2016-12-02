@@ -1,33 +1,6 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
-import {StoreService} from './app-store';
-
-import { createSelector } from 'reselect';
-
-const selectGroceryItems = (state: any): any => state.groceryItems;
-const selectGroceryList = (state: any): any => state.groceryList;
-
-const groceryListData = createSelector(
-  selectGroceryItems,
-  selectGroceryList,
-  (items, list) => {
-    return Object.entries(list).map(ent => {
-      let [name, quantity] = ent;
-      let item = items.filter((i: any) => i.name === name)[0];
-      let unitPrice = item ? item.price : 0;
-      let price = unitPrice * quantity;
-      return { name, quantity, unitPrice, price };
-    });
-  }
-);
-
-const groceryListTotal = createSelector(
-  groceryListData,
-  (list) => [{
-    price: list.reduce((p, i) => p + i.price, 0),
-    items: list.reduce((q, i) => q + i.quantity, 0)
-  }]
-);
+import {StoreService, buyGroceries, groceryListData, groceryListTotal} from './app-store';
 
 @Component({
   selector: 'grocery-list',
@@ -44,6 +17,9 @@ const groceryListTotal = createSelector(
           {{total.price | currency:'USD':true}},
           {{total.items}} items
         </div>
+        <div>
+          <button (click)="buy()">Buy!</button>
+        </div>
       </div>`
 })
 export class GroceryListComponent {
@@ -53,5 +29,9 @@ export class GroceryListComponent {
   constructor(private storeService: StoreService) {
     this.items = storeService.subscribe(groceryListData);
     this.totals = storeService.subscribe(groceryListTotal);
+  }
+
+  buy() {
+    this.storeService.store.dispatch(buyGroceries());
   }
 }

@@ -166,7 +166,7 @@ export class StoreService {
         applyMiddleware(reduxThunk.withExtraArgument({
           http
         })),
-        reduxDevToolsExtension && reduxDevToolsExtension()
+        reduxDevToolsExtension ? reduxDevToolsExtension() : (f => f)
       ));
   }
 

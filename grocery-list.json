@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Bannas",
+    "price": 1.49
+  },
+  {
+    "name": "Apples",
+    "price": 0.79
+  },
+  {
+    "name": "Pears",
+    "price": 0.98
+  },
+  {
+    "name": "Cereal",
+    "price": 3.49
+  },
+  {
+    "name": "Bread",
+    "price": 2.50
+  },
+  {
+    "name": "Milk",
+    "price": 3.10
+  },
+  {
+    "name": "Peanut Butter",
+    "price": 4.69
+  },
+  {
+    "name": "Spaghetti",
+    "price": 1.50
+  },
+  {
+    "name": "Granola Bars",
+    "price": 3.99
+  },
+  {
+    "name": "Cheese",
+    "price": 2.49
+  }
+]

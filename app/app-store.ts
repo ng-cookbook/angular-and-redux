@@ -4,6 +4,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import {Observable, Observer} from 'rxjs/Rx';
 import reduxThunk from 'redux-thunk';
 import { createSelector } from 'reselect';
+import {Http} from '@angular/http';
 
 const INIT_GROCERY_LIST = 'INIT_GROCERY_LIST';
 const ADD_TO_GROCERY_LIST = 'ADD_TO_GROCERY_LIST';
@@ -11,19 +12,24 @@ const CLEAR_GROCERY_LIST = 'CLEAR_GROCERY_LIST';
 const UPDATE_PANTRY = 'UPDATE_PANTRY';
 const DEBIT_ACCOUNT = 'DEBIT_ACCOUNT';
 
-export const initGroceryList = () => {
-  return {
-    type: INIT_GROCERY_LIST,
-    payload: [
-      { name: 'Bannas', price: 1.49 },
-      { name: 'Apples', price: 0.79 },
-      { name: 'Pears', price: 0.98 },
-      { name: 'Cereal', price: 3.49 },
-      { name: 'Bread', price: 2.50 },
-      { name: 'Milk', price: 3.10 },
-    ]
+interface IThunkApi {
+  http: Http;
+}
+
+export const initGroceryList = () =>
+  (dispatch: (action: any) => void, getState: () => any, api: IThunkApi) => {
+    api.http
+      .get('/grocery-list.json')
+      .map((result: any) => result.json())
+      .subscribe({
+        next: (groceryList: any) => {
+          dispatch({
+            type: INIT_GROCERY_LIST,
+            payload: groceryList
+          });
+        }
+      });
   };
-};
 
 export const addToGroceryList = (item: any) => {
   return {
@@ -147,25 +153,31 @@ export function reducer(state: any = {}, action: any) {
 
 const reduxDevToolsExtension = (<any>window).__REDUX_DEVTOOLS_EXTENSION__;
 
-const applicationStore = createStore(
-  reducer,
-  initialState,
-  compose(
-    applyMiddleware(reduxThunk),
-    reduxDevToolsExtension && reduxDevToolsExtension()
-  ));
-
 @Injectable()
 export class StoreService {
 
+  applicationStore: any;
+
+  constructor(http: Http) {
+    this.applicationStore = createStore(
+      reducer,
+      initialState,
+      compose(
+        applyMiddleware(reduxThunk.withExtraArgument({
+          http
+        })),
+        reduxDevToolsExtension && reduxDevToolsExtension()
+      ));
+  }
+
   get store() {
-    return applicationStore;
+    return this.applicationStore;
   }
 
   subscribe(stateSelector: (state: any) => any): Observable<any> {
     return Observable.create((observer: Observer<any>) => {
-      let unsubscribe = applicationStore.subscribe(() => {
-        let selectedState = stateSelector(applicationStore.getState());
+      let unsubscribe = this.applicationStore.subscribe(() => {
+        let selectedState = stateSelector(this.applicationStore.getState());
         observer.next(selectedState);
       });
       return unsubscribe;
